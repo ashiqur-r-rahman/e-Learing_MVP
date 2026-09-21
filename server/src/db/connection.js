@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import bcrypt from 'bcryptjs';
 import Database from 'better-sqlite3';
 import { env } from '../config/env.js';
 
@@ -20,8 +21,6 @@ export const seedDatabase = async () => {
   if (Number(userCount.count) > 0) {
     return;
   }
-
-  const bcrypt = await import('bcryptjs');
 
   const instructor = {
     name: 'Instructor Demo',
@@ -100,5 +99,7 @@ export const seedDatabase = async () => {
     insertEnrollment.run(studentId, courseId);
   });
 };
+
+await seedDatabase();
 
 export default db;
